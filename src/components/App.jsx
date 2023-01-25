@@ -1,13 +1,15 @@
 import "../styles/App.css"
 import "bulma/css/bulma.min.css"
 import {Header} from "./Header";
-import {Planning} from "./Planning";
+// import {Planning} from "./Planning";
+import {Login} from "./Login";
 
 export const App = () => {
     return (
-        <div className="App">
+        <div>
             <Header/>
-            <Planning/>
+            <Login/>
+            {/*<Planning/>*/}
         </div>
     );
 }
