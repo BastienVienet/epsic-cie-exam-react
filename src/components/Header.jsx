@@ -1,5 +1,14 @@
 export const Header = () => {
+
+    const title = "myplan"
+
     return (
-        <h1>MyPlan</h1>
+        <section className="hero is-info">
+            <div className="hero-body">
+                <p className="title">
+                    {title.toUpperCase()}
+                </p>
+            </div>
+        </section>
     );
 }
