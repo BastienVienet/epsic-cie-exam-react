@@ -34,7 +34,7 @@ export const Planning = () => {
         }
 
     return (
-        <table border="2" className="table">
+        <table className="table m-4">
             <thead>
             <tr>
                 <th>Date</th>
