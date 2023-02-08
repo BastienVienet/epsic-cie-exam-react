@@ -1,6 +1,7 @@
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import PropTypes from 'prop-types';
 
 export const Login = ({ setUserInfos }) => {
 
@@ -56,4 +57,8 @@ export const Login = ({ setUserInfos }) => {
             </div>
         </>
     );
+}
+
+Login.propTypes = {
+    setUserInfos: PropTypes.func.isRequired
 }
