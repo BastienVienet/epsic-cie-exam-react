@@ -1,14 +1,14 @@
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 import PropTypes from 'prop-types';
+import { useState } from "react";
 
-export const Login = ({ setUserInfos }) => {
+export const Login = ({setUserInfos}) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (!username) {
             alert("The user field can't be null");
             return;
@@ -17,11 +17,27 @@ export const Login = ({ setUserInfos }) => {
             alert("The password can't be null and must contain minimum 3 characters");
             return;
         }
-        setUserInfos('userInfo: ' + username + ' ' + password)
+
+        const answer = await fetchData()
+        if (answer) {
+            setUserInfos(answer)
+        } else {
+            alert('Compte inexistant !')
+        }
     }
 
-    return (
-        <>
+    const fetchData = async () => {
+        const response = await fetch('http://15.188.53.208:8080/utgCheckLogin',
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify({ username: username, password: password })
+            
+        })
+        return await response.json()
+    }
+
+    return (<>
             <div className="m-6">
                 <h1 className="title is-spaced has-text-weight-normal">Login</h1>
                 <h2 className="subtitle has-text-weight-bold mt-4 mb-0">User</h2>
@@ -30,11 +46,8 @@ export const Login = ({ setUserInfos }) => {
                         <input className="input" type="text" placeholder="Username" value={username}
                                onChange={e => setUsername(e.target.value)}/>
                         <span className="icon is-small is-left">
-                        <FontAwesomeIcon icon={faEnvelope}/>
-                    </span>
-                        <span className="icon is-small is-right">
-                        <i className="fas fa-check"></i>
-                    </span>
+                            <FontAwesomeIcon icon={faEnvelope}/>
+                        </span>
                     </p>
                 </div>
                 <h2 className="subtitle has-text-weight-bold mt-4 mb-0">Password</h2>
@@ -43,8 +56,8 @@ export const Login = ({ setUserInfos }) => {
                         <input className="input" type="password" placeholder="Password" value={password}
                                onChange={e => setPassword(e.target.value)}/>
                         <span className="icon is-small is-left">
-                        <FontAwesomeIcon icon={faLock}/>
-                    </span>
+                            <FontAwesomeIcon icon={faLock}/>
+                        </span>
                     </p>
                 </div>
                 <div className="field">
@@ -55,8 +68,7 @@ export const Login = ({ setUserInfos }) => {
                     </p>
                 </div>
             </div>
-        </>
-    );
+        </>);
 }
 
 Login.propTypes = {

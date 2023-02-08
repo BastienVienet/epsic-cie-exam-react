@@ -35,7 +35,7 @@ export const Planning = ({ userInfos }) => {
 
     return (
         <>
-        <p className="m-2">{userInfos}</p><hr/>
+        <p className="m-2">{"userinfo : " + userInfos.num_personne}</p><hr/>
         <table className="table m-4">
             <thead>
             <tr>
