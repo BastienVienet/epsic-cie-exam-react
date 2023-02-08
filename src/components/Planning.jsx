@@ -33,6 +33,21 @@ export const Planning = ({ userInfos }) => {
             ville: "1442 Montagny près Yverdon"
         }
 
+/*     const fetchCours = async () => {
+
+        const response = await fetch('http://15.188.53.208:8080/utgGETPlanningCours/1',
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify({ level: userInfos.level, id: userInfos.num_personne })
+        })
+        console.log(response.json());
+        return response.json()
+    
+    }
+
+    fetchCours()
+ */
     return (
         <>
         <p className="m-2">{"userinfo : " + userInfos.num_personne}</p><hr/>
