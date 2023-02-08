@@ -18,23 +18,22 @@ export const Login = ({setUserInfos}) => {
             return;
         }
 
-        const answer = await fetchData()
-        if (answer) {
-            setUserInfos(answer)
-        } else {
-            alert('Compte inexistant !')
-        }
-    }
-
-    const fetchData = async () => {
         const response = await fetch('http://15.188.53.208:8080/utgCheckLogin',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            body: JSON.stringify({ username: username, password: password })
-            
+            body: JSON.stringify({ username: username, password: password })       
         })
-        return await response.json()
+
+        const answer = await response.json()
+        if (answer.num_personne) {
+            setUserInfos(answer)
+        } else {
+            alert('Compte inexistant !')
+        }
+
+        // We store the userInfos in the sessionStorage after the request.
+        sessionStorage.setItem('userInfos', JSON.stringify(answer))
     }
 
     return (<>

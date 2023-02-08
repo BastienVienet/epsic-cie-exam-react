@@ -7,16 +7,19 @@ import { Planning } from "./Planning";
 
 export const App = () => {
 
-    const [userInfos, setUserInfos] = useState(null)
+    // Either it's null or it's the userInfos that we get from the sessionStorage.
+    const [userInfos, setUserInfos] = useState(JSON.parse(sessionStorage.getItem('userInfos')))
 
     return (
         <div>
             <Header/>
-            {userInfos === null ? (
-                <Login setUserInfos={setUserInfos}/>
-             ) : (
+            { userInfos ? (
+                // If userInfos is not null, we display the planning, meaning that the user is logged in.
                 <Planning userInfos={userInfos}/>
-             )}
+            ) : (
+                // If userInfos is null, we display the login page.
+                <Login setUserInfos={setUserInfos}/>
+                )}
         </div>
     );
 }
