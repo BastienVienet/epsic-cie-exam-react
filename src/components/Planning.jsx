@@ -1,4 +1,4 @@
-export const Planning = () => {
+export const Planning = ({ userInfos }) => {
 
     const day1 =
         {
@@ -34,6 +34,8 @@ export const Planning = () => {
         }
 
     return (
+        <>
+        <p className="m-2">{userInfos}</p><hr/>
         <table className="table m-4">
             <thead>
             <tr>
@@ -62,5 +64,6 @@ export const Planning = () => {
             </tr>
             </tbody>
         </table>
+        </>
     );
 }

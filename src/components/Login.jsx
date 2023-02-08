@@ -1,12 +1,11 @@
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEnvelope, faLock} from "@fortawesome/free-solid-svg-icons";
-import {useState} from "react";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
-export const Login = () => {
+export const Login = ({ setUserInfos }) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [userInfos, setUserInfos] = useState(null)
 
     const handleLogin = () => {
         if (!username) {
@@ -24,7 +23,6 @@ export const Login = () => {
         <>
             <div className="m-6">
                 <h1 className="title is-spaced has-text-weight-normal">Login</h1>
-                {userInfos && <p>{userInfos}</p>}
                 <h2 className="subtitle has-text-weight-bold mt-4 mb-0">User</h2>
                 <div className="field">
                     <p className="control has-icons-left">
