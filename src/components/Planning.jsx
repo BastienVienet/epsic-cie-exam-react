@@ -1,57 +1,28 @@
+import { useState } from "react";
+
 export const Planning = ({ userInfos }) => {
+    const [coursData, setCoursData] = useState([]);
 
-    const day1 =
-        {
-            date: "11.01.2023",
-            cours: "22-294-S4VG",
-            nom: "CIE 294 - Réaliser le front-end d'une application Web Interactive",
-            prof: "Executive Knowledge Flavio Pacifico",
-            salle: "Micro Informatic Systems SA Salle Pepper",
-            adresse: "En Chamard 41A",
-            ville: "1442 Montagny près Yverdon"
-        }
 
-    const day2 =
-        {
-            date: "18.01.2023",
-            cours: "22-294-S4VG",
-            nom: "CIE 294 - Réaliser le front-end d'une application Web Interactive",
-            prof: "Executive Knowledge Flavio Pacifico",
-            salle: "Micro Informatic Systems SA Salle Pepper",
-            adresse: "En Chamard 41A",
-            ville: "1442 Montagny près Yverdon"
-        }
+    const fetchCours = async () => {
 
-    const day3 =
-        {
-            date: "25.01.2023",
-            cours: "22-294-S4VG",
-            nom: "CIE 294 - Réaliser le front-end d'une application Web Interactive",
-            prof: "Executive Knowledge Flavio Pacifico",
-            salle: "Micro Informatic Systems SA Salle Pepper",
-            adresse: "En Chamard 41A",
-            ville: "1442 Montagny près Yverdon"
-        }
-
-/*     const fetchCours = async () => {
-
-        const response = await fetch('http://15.188.53.208:8080/utgGETPlanningCours/1',
+        const response = await fetch('http://15.188.53.208:8080/utgGETPlanningCours/2',
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
             body: JSON.stringify({ level: userInfos.level, id: userInfos.num_personne })
         })
-        console.log(response.json());
-        return response.json()
-    
+        
+        const data =  await response.json()
+        setCoursData(data)
     }
 
     fetchCours()
- */
+    
     return (
-        <>
-        <p className="m-2">{"userinfo : " + userInfos.num_personne}</p><hr/>
-        <table className="table m-4">
+        <div className="m-6">
+        <h1 className="title is-spaced has-text-weight-normal">Planification</h1>
+        <table className="table">
             <thead>
             <tr>
                 <th>Date</th>
@@ -60,25 +31,15 @@ export const Planning = ({ userInfos }) => {
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>{day1.date}<br/>{day1.cours}</td>
-                <td>{day1.nom}<br/>{day1.prof}</td>
-                <td>{day1.salle}<br/>{day1.adresse}<br/>{day1.ville}</td>
-            </tr>
-            <tr className="is-selected">
-                <td>{day2.date}<br/>{day2.cours}</td>
-                <td>{day2.nom}<br/>{day2.prof}</td>
-                <td>{day2.salle}<br/>{day2.adresse}<br/>{day2.ville}</td>
-            </tr>
-            <tr>
-                <td>{day3.date}<br/>{day3.cours}</td>
-                <td>{day3.nom}<br/>{day3.prof}</td>
-                <td>{day3.salle}<br/>{day3.adresse}<br/>{day3.ville}</td>
-            </tr>
-            <tr>
-            </tr>
+            {coursData.map((cours, index) => (
+                        <tr key={index}>
+                            <td>{cours.Date_session}<br/>{cours.Session}</td>
+                            <td>{cours.Nom_du_cours}<br/>{cours.Formateur}</td>
+                            <td>{cours.Lieu_du_cours}</td>
+                        </tr>
+                    ))}
             </tbody>
         </table>
-        </>
+        </div>
     );
 }
