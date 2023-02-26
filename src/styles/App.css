@@ -1,3 +1,23 @@
-.Header {
-    text-align: center;
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.hero-body {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+ 
+.title-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+ 
+.menu-container {
+    display: flex;
+    justify-content: flex-end;
 }
