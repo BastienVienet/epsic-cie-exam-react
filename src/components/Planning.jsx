@@ -1,4 +1,4 @@
-import { faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
@@ -46,13 +46,23 @@ export const Planning = ({ userInfos }) => {
                 <p className="card-header-title">
                   {cours.formatedDate} - {cours.Session}
                 </p>
-                <button className="card-header-icon" aria-label="more options">
-                  <span className="icon">
-                    <i className="fas fa-angle-down" aria-hidden="true"></i>
-                  </span>
+                <button
+                  className="card-header-icon"
+                  aria-label="more options"
+                  onClick={() => {
+                    const cardContent =
+                      document.getElementsByClassName("card-content")[index];
+                    if (cardContent.classList.contains("is-hidden")) {
+                      cardContent.classList.remove("is-hidden");
+                    } else {
+                      cardContent.classList.add("is-hidden");
+                    }
+                  }}
+                >
+                  <FontAwesomeIcon icon={faAngleDown} />
                 </button>
               </header>
-              <div className="card-content">
+              <div className="card-content is-hidden">
                 <div className="content">
                   <p>{cours.Nom_du_cours}</p>
                   <p>{cours.Formateur}</p>
@@ -65,7 +75,7 @@ export const Planning = ({ userInfos }) => {
                   rel="noreferrer"
                   className="card-footer-item"
                 >
-                  {cours.Lieu_du_cours}
+                  {cours.Lieu_du_cours}&nbsp;
                   <FontAwesomeIcon icon={faBuilding} />
                 </a>
               </footer>
