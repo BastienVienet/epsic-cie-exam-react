@@ -1,24 +1,20 @@
-import { Menu } from "./Menu"
+import { Menu } from "./Menu";
 
-export const Header = ({userInfos}) => {
+export const Header = ({ userInfos }) => {
+  const title = "myplan";
 
-    const title = "myplan"
-
-    return (
-        <section className="hero is-info header">
-            <div className="hero-body">
-                <div className="title-container">
-                    <p className="title m-0">
-                        {title.toUpperCase()}
-                    </p>
-                </div>
-                {userInfos ? (
-                <div className="menu-container">
-                    <Menu />
-                </div>
-                ) : (null)}
-                
-            </div>
-        </section>
-    )
-}
+  return (
+    <section className="hero is-info header">
+      <div className="hero-body">
+        <div className="title-container">
+          <p className="title m-0">{title.toUpperCase()}</p>
+        </div>
+        {userInfos ? (
+          <div className="menu-container">
+            <Menu />
+          </div>
+        ) : null}
+      </div>
+    </section>
+  );
+};
