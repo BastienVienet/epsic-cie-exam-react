@@ -1,25 +1,42 @@
-import "bulma/css/bulma.min.css";
-import { useState } from "react";
-import "../styles/App.css";
-import { Header } from "./Header";
-import { Login } from "./Login";
-import { Planning } from "./Planning";
+import "bulma/css/bulma.min.css"
+import { useState } from "react"
+import "../styles/App.css"
+import { Portfolio } from "./Portfolio"
+import { Header } from "./Header"
+import { Login } from "./Login"
+import { Planning } from "./Planning"
+import { Routes, Route, Navigate } from "react-router-dom"
 
 export const App = () => {
-
-    // Either it's null or it's the userInfos that we get from the sessionStorage.
     const [userInfos, setUserInfos] = useState(JSON.parse(sessionStorage.getItem('userInfos')))
 
     return (
         <div>
-            <Header/>
-            { userInfos ? (
-                // If userInfos is not null, we display the planning, meaning that the user is logged in.
-                <Planning userInfos={userInfos}/>
-            ) : (
-                // If userInfos is null, we display the login page.
-                <Login setUserInfos={setUserInfos}/>
-                )}
+            <Header userInfos={userInfos} />
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        userInfos ? (
+                            <Planning userInfos={userInfos} />
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route
+                    path="/portfolio"
+                    element={
+                        userInfos ? (
+                            <Portfolio />
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
+                />
+                <Route path="/login" element={<Login setUserInfos={setUserInfos} />} />
+                <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
         </div>
-    );
+    )
 }
