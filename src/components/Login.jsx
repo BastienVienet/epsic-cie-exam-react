@@ -1,21 +1,23 @@
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PropTypes from 'prop-types';
-import { useState } from "react";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import PropTypes from 'prop-types'
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const Login = ({setUserInfos}) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
 
     const handleLogin = async () => {
         if (!username) {
-            alert("The user field can't be null");
-            return;
+            alert("The user field can't be null")
+            return
         }
         if (!password || password.length < 3) {
-            alert("The password can't be null and must contain minimum 3 characters");
-            return;
+            alert("The password can't be null and must contain minimum 3 characters")
+            return
         }
 
         const response = await fetch('http://15.188.53.208:8080/utgCheckLogin',
@@ -28,6 +30,7 @@ export const Login = ({setUserInfos}) => {
         const answer = await response.json()
         if (answer.num_personne) {
             setUserInfos(answer)
+            navigate('/')
         } else {
             alert('Compte inexistant !')
         }
@@ -67,7 +70,7 @@ export const Login = ({setUserInfos}) => {
                     </p>
                 </div>
             </div>
-        </>);
+        </>)
 }
 
 Login.propTypes = {
