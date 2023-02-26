@@ -1,9 +1,14 @@
-import { faAngleDown, faBuilding } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDown,
+  faBuilding,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 export const Planning = ({ userInfos }) => {
   const [coursData, setCoursData] = useState([]);
+  const [filter, setFilter] = useState("");
 
   const fetchCours = async () => {
     const response = await fetch(
@@ -23,21 +28,43 @@ export const Planning = ({ userInfos }) => {
   };
 
   fetchCours();
-  const coursDataWithFormattedDate = coursData.map((cours) => {
-    const date = new Date(cours.Date_session);
-    const formatedDate = date
-      .toLocaleDateString("fr-FR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
-      .replace(/\//g, ".");
-    return { ...cours, formatedDate };
-  });
+  const coursDataWithFormattedDate = coursData
+    .map((cours) => {
+      const date = new Date(cours.Date_session);
+      const formatedDate = date
+        .toLocaleDateString("fr-FR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })
+        .replace(/\//g, ".");
+      return { ...cours, formatedDate };
+    })
+    .filter((cours) =>
+      filter
+        ? cours.Nom_du_cours.toLowerCase().includes(filter.toLowerCase())
+        : true
+    );
 
   return (
     <div className="m-6">
       <h1 className="title is-spaced has-text-weight-normal">Planification</h1>
+      <div className="columns is-centered">
+        <div className="column is-half">
+          <p className="control has-icons-left">
+            <input
+              className="input"
+              type="text"
+              placeholder="Search"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            />
+            <span className="icon is-small is-left">
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </span>
+          </p>
+        </div>
+      </div>
       <div className="columns is-multiline">
         {coursDataWithFormattedDate.map((cours, index) => (
           <div key={index} className="column is-full">
