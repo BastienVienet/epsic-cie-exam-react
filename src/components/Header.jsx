@@ -9,11 +9,7 @@ export const Header = ({ userInfos }) => {
         <div className="title-container">
           <p className="title m-0">{title.toUpperCase()}</p>
         </div>
-        {userInfos ? (
-          <div className="menu-container">
-            <Menu />
-          </div>
-        ) : null}
+        {userInfos ? <Menu /> : null}
       </div>
     </section>
   );

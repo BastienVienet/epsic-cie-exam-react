@@ -1,16 +1,22 @@
 import { Link } from "react-router-dom";
+import { elastic as MenuSlide } from "react-burger-menu";
+import "../styles/Burger.css";
 
 export const Menu = () => {
   return (
-    <nav className="navbar">
+    <MenuSlide right>
       <div>
-        <Link to="/" className="navbar-item">
-          Planning
-        </Link>
-        <Link to="/portfolio" className="navbar-item">
-          Portfolio
-        </Link>
+        <div className="my-4 has-text-light">
+          <Link to="/" className="menu-item">
+            Planning
+          </Link>
+        </div>
+        <div className="my-4 has-text-light">
+          <Link to="/portfolio" className="menu-item">
+            Portfolio
+          </Link>
+        </div>
       </div>
-    </nav>
+    </MenuSlide>
   );
 };
