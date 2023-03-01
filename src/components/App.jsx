@@ -28,7 +28,13 @@ export const App = () => {
         />
         <Route
           path="/portfolio"
-          element={userInfos ? <Portfolio /> : <Navigate to="/login" />}
+          element={
+            userInfos ? (
+              <Portfolio userInfos={userInfos} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route path="/login" element={<Login setUserInfos={setUserInfos} />} />
         <Route path="*" element={<Navigate to="/" />} />

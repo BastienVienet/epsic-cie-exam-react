@@ -4,30 +4,25 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Planning = ({ userInfos }) => {
   const [coursData, setCoursData] = useState([]);
   const [filter, setFilter] = useState("");
 
-  const fetchCours = async () => {
-    const response = await fetch(
-      "http://15.188.53.208:8080/utgGETPlanningCours/1",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json; charset=utf-8" },
-        body: JSON.stringify({
-          level: userInfos.level,
-          id: userInfos.num_personne,
-        }),
-      }
-    );
+  useEffect(() => {
+    fetch("http://15.188.53.208:8080/utgGETPlanningCours/1", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify({
+        level: userInfos.level,
+        id: userInfos.num_personne,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => setCoursData(data));
+  }, [userInfos.level, userInfos.num_personne]);
 
-    const data = await response.json();
-    setCoursData(data);
-  };
-
-  fetchCours();
   const coursDataWithFormattedDate = coursData
     .map((cours) => {
       const date = new Date(cours.Date_session);
